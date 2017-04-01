@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UsbMagic</string>
+    <string name="flash_light_label">Usb Torch</string>
+    <string name="flash_light_explanation">Turn on flashlight when USB is attached</string>
 </resources>
