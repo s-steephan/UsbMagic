@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_base_empty_height">20dp</dimen>
+    <dimen name="card_header_native_simple_title_text_size">17dp</dimen>
+    <dimen name="card_main_content_native_simple_title_text_size">12dp</dimen>
+</resources>

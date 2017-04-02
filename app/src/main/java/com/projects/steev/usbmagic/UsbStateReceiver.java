@@ -10,16 +10,20 @@ public class UsbStateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String action = intent.getAction();
-        boolean is_torch_enabled= CoreUtilities.isTorchEnabled(ControlPanelActivity.instance);
+
+        boolean is_torch_on_enabled= CoreUtilities.getTorchSwitchState(ControlPanelActivity.instance,
+                true);
+        boolean is_torch_off_enabled= CoreUtilities.getTorchSwitchState(ControlPanelActivity.instance,
+                false);
 
         if(action.equals(Intent.ACTION_POWER_CONNECTED)) {
-            if(is_torch_enabled){
-                CoreUtilities.changeFlashLightState(true);
+            if(is_torch_on_enabled){
+                CoreUtilities.turnOnFlashLight();
             }
         }
         else if(action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
-            if(is_torch_enabled){
-                CoreUtilities.changeFlashLightState(false);
+            if(is_torch_off_enabled){
+                CoreUtilities.turnOffFlashLight();
             }
         }
     }

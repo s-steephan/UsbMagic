@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Camera;
 import android.text.SpannableString;
-import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.widget.Switch;
@@ -16,11 +15,16 @@ import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 
 public class CoreUtilities {
 
-    public static boolean isTorchEnabled(Activity activity){
-        String TORCH_PREFS_NAME = "flashlight_status";
+    public static boolean getTorchSwitchState(Activity activity, Boolean state){
+        String TORCH_PREFS_NAME = "flashlight_settings";
+        Boolean torch_switch_state;
         SharedPreferences settings = activity.getSharedPreferences(TORCH_PREFS_NAME, MODE_PRIVATE);
-        String is_torch_enabled = settings.getString("is_torch_enabled", "");
-        return Boolean.parseBoolean(is_torch_enabled);
+        if(state) {
+            torch_switch_state = settings.getBoolean("is_torch_on_feature_enabled", false);
+        } else {
+            torch_switch_state = settings.getBoolean("is_torch_off_feature_enabled", false);
+        }
+        return torch_switch_state;
     }
 
     public static void saveFlashLightState(String state){
@@ -41,10 +45,10 @@ public class CoreUtilities {
         return false;
     }
 
-    public static void changeFlashLightState(Boolean state){
+    public static void turnOnFlashLight(){
         try {
-            Camera camera;
-            if (state && !isFlashLightStateUp(ControlPanelActivity.instance)) {
+            if (!isFlashLightStateUp(ControlPanelActivity.instance)) {
+                Camera camera;
                 camera = Camera.open();
                 Camera.Parameters parameters = camera.getParameters();
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
@@ -52,8 +56,16 @@ public class CoreUtilities {
                 camera.release();
                 saveFlashLightState("on");
                 Toast.makeText(ControlPanelActivity.instance, "Flashlight is on", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e){
+            Toast.makeText(ControlPanelActivity.instance, "Unable to turn on flashlight", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-            } else if (isFlashLightStateUp(ControlPanelActivity.instance)){
+    public static void turnOffFlashLight(){
+        try {
+            if (isFlashLightStateUp(ControlPanelActivity.instance)) {
+                Camera camera;
                 camera = Camera.open();
                 Camera.Parameters parameters = camera.getParameters();
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
@@ -66,20 +78,16 @@ public class CoreUtilities {
                 saveFlashLightState("off");
                 Toast.makeText(ControlPanelActivity.instance, "Flashlight is off", Toast.LENGTH_SHORT).show();
             }
-        } catch (Exception e){
-            
+        } catch (Exception e) {
+            Toast.makeText(ControlPanelActivity.instance, "Unable to turn off flashlight", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public static void setTextForSwitch(String title_text, String explanation_text, Switch new_switch){
-        SpannableString title_span = new SpannableString(title_text);
-        title_span.setSpan(new AbsoluteSizeSpan(35), 0, title_text.length(), SPAN_INCLUSIVE_INCLUSIVE);
-
+    public static void setSingleLabelTextForSwitch(String explanation_text, Switch new_switch){
         SpannableString explanation_span = new SpannableString(explanation_text);
         explanation_span.setSpan(new AbsoluteSizeSpan(25), 0, explanation_text.length(), SPAN_INCLUSIVE_INCLUSIVE);
         explanation_span.setSpan(new ForegroundColorSpan(Color.parseColor("#585858")), 0, explanation_text.length(), 0);
 
-        CharSequence finalText = TextUtils.concat(title_span, "\n", explanation_span);
-        new_switch.setText(finalText);
+        new_switch.setText(explanation_span);
     }
 }

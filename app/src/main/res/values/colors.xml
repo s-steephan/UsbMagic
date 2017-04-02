@@ -3,4 +3,5 @@
     <color name="colorPrimary">#00795c</color>
     <color name="colorPrimaryDark">#004132</color>
     <color name="colorAccent">#7759b1</color>
+    <color name="card_backgroundExpand">#fafaf9</color>
 </resources>

@@ -12,12 +12,15 @@
         android:layout_height="56dp"
         layout="@layout/toolbar" />
 
-    <Switch
-        android:id="@+id/flashlight_switch"
+    <it.gmariotti.cardslib.library.view.CardViewNative
+        android:id="@+id/usb_torch_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checked="false"
-        android:text="@string/flash_light_label"
-        android:padding="10dp"/>
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:elevation="4dp">
+
+        </it.gmariotti.cardslib.library.view.CardViewNative>
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">USB Magic</string>
-    <string name="flash_light_label">USB Torch</string>
-    <string name="flash_light_explanation">Turn on flashlight when USB is attached</string>
+    <string name="flashlight_card_heater">USB Torch</string>
+    <string name="flashlight_card_explanation">This feature allows to turn on/off flashlight when USB state changes.</string>
+    <string name="flashlight_on_explanation">Turn on flashlight when USB is connected</string>
+    <string name="flashlight_off_explanation">Turn off flashlight when USB is disconnected</string>
 </resources>
