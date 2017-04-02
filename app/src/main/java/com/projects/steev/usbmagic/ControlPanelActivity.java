@@ -3,6 +3,7 @@ package com.projects.steev.usbmagic;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -15,6 +16,9 @@ public class ControlPanelActivity extends AppCompatActivity implements CompoundB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_panel);
         instance =  this;
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Switch flashlight_switch = (Switch) findViewById(R.id.flashlight_switch);
         flashlight_switch.setChecked(CoreUtilities.isTorchEnabled(this));

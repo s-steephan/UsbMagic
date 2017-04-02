@@ -3,7 +3,6 @@ package com.projects.steev.usbmagic;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Camera;
 
 public class UsbStateReceiver extends BroadcastReceiver {
 
